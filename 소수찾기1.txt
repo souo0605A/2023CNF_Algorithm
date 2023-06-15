@@ -1,0 +1,18 @@
+
+----------------------
+자바스크립트 풀이 진행
+----------------------
+
+function solution(num) {
+    var answer = Array(num-1).fill().map((el, i) => (i+2)).filter((el, index) =>{
+        let flag = true;
+        for(let j=2; j<=Math.sqrt(el); ++j) {
+            if( el % j == 0 ) {
+                flag = false;
+            }
+        }
+        return flag;
+    }).length;
+
+    return answer;
+}
