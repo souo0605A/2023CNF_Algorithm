@@ -1,0 +1,48 @@
+/* 자바스크립트 풀이 */
+
+function solution(dartResult) { 
+    const tmpArr = Array.from( dartResult.replaceAll('10', '-') );
+
+    let numArr = [];
+    let p = 0 , curNum = 'hi';
+
+    for(let i=0; i<tmpArr.length; ++i) {
+
+        if( (  (tmpArr[i] == '-') ? 10 : Number(tmpArr[i])  ) >= 0 ) {
+            if( curNum != 'hi' ) numArr[p++] = curNum;
+
+            //숫자인 경우 다트 점수 세팅
+            curNum = (tmpArr[i] == '-')?10:Number(tmpArr[i]);
+        }
+        else if( tmpArr[i] == 'D' ) {
+            //다트 점수 세팅
+            curNum = Math.pow(curNum , 2);
+        }
+        else if( tmpArr[i] == 'T' ) {
+            //다트 점수 세팅
+            curNum = Math.pow(curNum , 3);
+        }
+        else if( tmpArr[i] == '*' ) {  //스타상
+            if( p == 0 ) {
+                curNum *= 2;        //현재 점수만 2배
+            }
+            else {
+                numArr[p-1] *= 2;   //이전 점수 2배
+                curNum *= 2;        //현재 점수 2배
+            }
+        }
+        else if( tmpArr[i] == '#' ) {  //아차상
+            curNum *= -1;
+        }
+
+    }
+
+    // 맨 마지막 숫자 삽입
+    numArr.push(curNum);
+
+    //점수 합계반환
+    return numArr.reduce((c , n) => { return (c+n) } , 0);
+}
+
+
+
